@@ -11,6 +11,40 @@ const nav = document.querySelector('.nav');
 const tabsContent = document.querySelectorAll('.operations__content');
 const header = document.querySelector('.header');
 
+
+///////////////////////////////////////
+// validation to form
+function validateCreationForm() {
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("email").value;
+  let validationError = document.getElementById("invalidMessage");
+  validationError.classList.add('error');
+  let isValid = true;
+  let errorMessages = [];
+
+  if(firstName==="" || lastName==="" || email===""){
+    errorMessages.push("*please fill all fields")
+    isValid = false;
+  }
+  else if (firstName.length < 3) {
+    errorMessages.push("*wrong first name");
+    isValid = false;
+  }
+  else if (lastName.length < 3) {
+    errorMessages.push("*wrong last name");
+    isValid = false;
+  }
+  else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
+    errorMessages.push("*invalid email");
+    isValid = false;
+  }
+
+  validationError.innerHTML = errorMessages.join("<br>");
+  return isValid;
+};
+
+
 ///////////////////////////////////////
 // Modal window
 

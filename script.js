@@ -11,6 +11,40 @@ const nav = document.querySelector('.nav');
 const tabsContent = document.querySelectorAll('.operations__content');
 const header = document.querySelector('.header');
 
+
+///////////////////////////////////////
+// validation to form
+function creationValidation() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var email = document.getElementById("email").value;
+  var validationError = document.getElementById("invalidMessage");
+  validationError.classList.add('error');
+  var isValid = true;
+  var errorMessages = [];
+
+  if(firstName=="" || lastName=="" || email==""){
+    errorMessages.push("*please fill all fields")
+    isValid = false;
+  }
+  else if (firstName.length < 3) {
+    errorMessages.push("*wrong first name");
+    isValid = false;
+  }
+  else if (lastName.length < 3) {
+    errorMessages.push("*wrong last name");
+    isValid = false;
+  }
+  else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
+    errorMessages.push("*invalid email");
+    isValid = false;
+  }
+
+  validationError.innerHTML = errorMessages.join("<br>");
+  return isValid;
+}
+
+
 ///////////////////////////////////////
 // Modal window
 
@@ -19,15 +53,21 @@ const openModal = function (e) {
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
-
+/*i make ke w copy of this finto enable x button in line 70 */
 const closeModal = function () {
+  if(creationValidation()){
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+  }
+};
+const closeModal_btn = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
 
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
-btnCloseModal.addEventListener('click', closeModal);
+btnCloseModal.addEventListener('click', closeModal_btn);
 overlay.addEventListener('click', closeModal);
 
 document.addEventListener('keydown', function (e) {

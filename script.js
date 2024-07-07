@@ -14,16 +14,16 @@ const header = document.querySelector('.header');
 
 ///////////////////////////////////////
 // validation to form
-function creationValidation() {
-  var firstName = document.getElementById("firstName").value;
-  var lastName = document.getElementById("lastName").value;
-  var email = document.getElementById("email").value;
-  var validationError = document.getElementById("invalidMessage");
+function validateCreationForm() {
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("email").value;
+  let validationError = document.getElementById("invalidMessage");
   validationError.classList.add('error');
-  var isValid = true;
-  var errorMessages = [];
+  let isValid = true;
+  let errorMessages = [];
 
-  if(firstName=="" || lastName=="" || email==""){
+  if(firstName==="" || lastName==="" || email===""){
     errorMessages.push("*please fill all fields")
     isValid = false;
   }
@@ -42,7 +42,7 @@ function creationValidation() {
 
   validationError.innerHTML = errorMessages.join("<br>");
   return isValid;
-}
+};
 
 
 ///////////////////////////////////////
@@ -53,21 +53,15 @@ const openModal = function (e) {
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
-/*i make ke w copy of this finto enable x button in line 70 */
+
 const closeModal = function () {
-  if(creationValidation()){
-  modal.classList.add('hidden');
-  overlay.classList.add('hidden');
-  }
-};
-const closeModal_btn = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
 
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
-btnCloseModal.addEventListener('click', closeModal_btn);
+btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
 document.addEventListener('keydown', function (e) {
